@@ -1,2 +1,417 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page_title }}</title>
+    <link rel="stylesheet" href="https://cdn.shopify.com/shopifycloud/boomerang/shopify-boomerang-1.0.0.min.css">
+    <link rel="stylesheet" href="https://cdn.shopify.com/shopifycloud/boomerang/shopify-boomerang-1.0.0.min.css">
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        color: #333;
+      }
+      .divider {
+        margin: 20px 0;
+        border-bottom: 1px solid #0000004d;
+      }
+      h1 {
+        font-family: 'Roboto', sans-serif;
+        font-size: 28px;
+        color: #333;
+      }
 
-{% block content %}{% endblock %}
+      p {
+        color: #333;
+        font-size: 16px;
+      }
+
+      .price {
+        font-size: 24px;
+        color: #000000;
+        font-weight: medium;
+      }
+
+      .content {
+        max-width: 1500px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      header {
+        //background-color: #f8f8f8;
+        background-color: #e65c00;
+        padding: 10px;
+        margin: 0;
+        text-align: center;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .topContent {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 30px;
+      }
+
+      .imageOuterContainer {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 20px;
+        width: 66%;
+      }
+
+      .imagelist {
+        display: flex;
+        flex-direction: column;
+        overflow-y: auto;
+        max-height: 500px;
+        width: 100px;
+        scroll-behavior: smooth;
+      }
+
+      .thumbnail {
+        cursor: pointer;
+        flex-shrink: 0;
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        margin-bottom: 5px;
+        border: 1px solid #0000004d;
+      }
+
+      .mainImage {
+        margin: auto;
+        max-height: 100%;
+        width: auto;
+        object-fit: contain;
+      }
+
+      figure {
+        width: calc(100% - 1.25rem);
+      }
+
+      figure > div {
+        margin: auto;
+        max-width: 800px;
+        width: 100%;
+      }
+
+      .list-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .arrow {
+        cursor: pointer;
+        font-size: 24px;
+        padding: 10px;
+        background-color: rgba(0, 0, 0, 0.5);
+        color: white;
+        user-select: none;
+        position: absolute;
+        z-index: 1;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      .up-arrow {
+        top: 10px;
+      }
+
+      .down-arrow {
+        bottom: 10px;
+      }
+
+      .detail {
+        width: 40%;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .review-section {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .add-to-cart-btn {
+        background-color: #000000;
+        color: #fff;
+        padding: 15px 30px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+      }
+
+      .add-to-cart-btn:hover {
+        background-color: 003400;
+      }
+
+      #cart-success-message {
+        margin-top: 20px;
+        color: green;
+        font-weight: bold;
+        display: none;
+      }
+
+      .related-product {
+        margin-top: 40px;
+      }
+
+      .product-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+      }
+
+      .product-card {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+       {% comment %} flex: 1 1 calc(20% - 20px); /* Adjust card size to take 25% of the row, minus the gap */ {% endcomment %}
+        max-width: calc(20% - 20px);
+        text-align: center;
+        transition: transform 0.3s ease;
+      }
+
+      .product-card:hover {
+        transform: translateY(-5px);
+      }
+
+      .product-image img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+      }
+
+      .product-info {
+        padding: 15px;
+      }
+
+      .product-info h3 {
+        font-size: 18px;
+        color: #333;
+        margin: 10px 0;
+      }
+
+      .product-info .product-price {
+        font-size: 16px;
+        color: #ff6600;
+        font-weight: bold;
+      }
+
+      .size {
+        margin-bottom: 20px;
+      }
+
+      .size-options {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      .size-option {
+        display: inline-block;
+        cursor: pointer;
+        padding: 10px 20px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background-color: #f9f9f9;
+        transition: background-color 0.3s ease;
+        font-size: 16px;
+      }
+
+      .size-option:hover {
+        background-color: #e6e6e6;
+      }
+
+      input[type='radio'] {
+        display: none;
+      }
+
+      input[type='radio']:checked + .size-option {
+        background-color: #000000;
+        color: white;
+        border-color: #000000;
+      }
+
+      .quantity-selector {
+        display: flex;
+        align-items: center;
+      }
+
+      .quantity-btn {
+        background-color: #000000;
+        color: white;
+        border: none;
+        padding: 10px;
+        cursor: pointer;
+        font-size: 18px;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 4px;
+      }
+
+      .quantity-btn:hover {
+        background-color: #e65c00;
+      }
+
+      #quantity-display {
+        width: 60px;
+        text-align: center;
+        font-size: 16px;
+        padding: 10px 5px;
+        margin: 0 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+
+      #quantity {
+        display: none; /* Hide the input field */
+      }
+
+      @media (max-width: 768px) {
+        .topContent {
+          flex-direction: column;
+          gap: 20px; 
+        }
+
+        .imageOuterContainer {
+          width: 100%;
+          flex-direction: column-reverse;
+        }
+
+        .list-container {
+          flex-direction: row;
+          width: 100%;
+        }
+
+        .imagelist {
+          max-height: 100px;
+          width: 100%;
+          flex-direction: row;
+          overflow-x: auto;
+          gap: 5px;
+        }
+
+        .detail {
+          width: 100%;
+        }
+
+        .mainImage {
+          width: 100%;
+        }
+
+        .product-card {
+          max-width: calc(33.33% - 20px);
+        }
+      }
+
+      @media (max-width: 480px) {
+        .topContent {
+          flex-direction: column;
+          gap: 15px; 
+          align-items: center; 
+        }
+
+        .product-card {
+            max-width: 100%;
+          }
+      }
+    </style>
+    <script>
+        function selectImage(imageUrl) {
+          document.getElementById('mainImage').src = imageUrl;
+        }
+
+        function scrollUp() {
+          document.querySelector('.imagelist').scrollBy({ top: -100, behavior: 'smooth' });
+        }
+
+        function scrollDown() {
+          document.querySelector('.imagelist').scrollBy({ top: 100, behavior: 'smooth' });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var quantityInput = document.getElementById('quantity');
+            var quantityDisplay = document.getElementById('quantity-display');
+            var increaseBtn = document.getElementById('increase-quantity');
+            var decreaseBtn = document.getElementById('decrease-quantity');
+
+            function updateQuantityDisplay(value) {
+                quantityDisplay.textContent = value;
+                quantityInput.value = value; // Sync the hidden input with the display value
+            }
+
+            increaseBtn.addEventListener('click', function() {
+                var currentValue = parseInt(quantityInput.value);
+                updateQuantityDisplay(currentValue + 1);
+            });
+
+            decreaseBtn.addEventListener('click', function() {
+                var currentValue = parseInt(quantityInput.value);
+                if (currentValue > 1) { // Ensure quantity doesn't go below 1
+                    updateQuantityDisplay(currentValue - 1);
+                }
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+          document.getElementById('add-to-cart').addEventListener('click', function() {
+              // Get the selected size from the radio buttons
+              var selectedSize = document.querySelector('input[name="size"]:checked').value;
+              var quantity = document.getElementById('quantity').value;
+
+              // Assuming the variant ID is accessible. You may need to adjust this depending on your setup.
+              var variantId = {{ product.variants.first.id }};
+
+              fetch('/cart/add.js', {
+                  method: 'POST',
+                  headers: {
+                      'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify({
+                      id: variantId,
+                      quantity: quantity,
+                      properties: { 'Size': selectedSize }
+                  })
+              })
+              .then(response => response.json())
+              .then(data => {
+                  if (data.success) {
+                      alert('Product added to cart successfully!');
+                  } else {
+                      alert('There was an error adding the product to the cart. Please try again.');
+                  }
+              })
+              .catch(error => console.error('Error:', error));
+          });
+      });
+    </script>
+  </head>
+  <body>
+    <header>
+      {% block header_content %}
+      {% endblock %}
+    </header>
+    <div class="content">
+      {% block content %}
+      {% endblock %}
+    </div>
+  </body>
+</html>
