@@ -13,13 +13,21 @@
         padding: 0;
         color: #333;
       }
+      .container {
+        padding-bottom: 50px;
+      }
       .divider {
         margin: 20px 0;
         border-bottom: 1px solid #0000004d;
       }
       h1 {
-        font-family: 'Roboto', sans-serif;
+        
         font-size: 28px;
+        color: #333;
+      }
+
+      h3{
+        font-size: 24px;
         color: #333;
       }
 
@@ -41,13 +49,14 @@
       }
 
       header {
-        //background-color: #f8f8f8;
-        background-color: #e65c00;
+        background-color: #f8f8f8;
+        {% comment %} background-color: #e65c00; {% endcomment %}
         padding: 10px;
+        padding-left: 30px;
         margin: 0;
         text-align: center;
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
         align-items: center;
       }
 
@@ -340,6 +349,7 @@
             max-width: 100%;
           }
       }
+
     </style>
     <script>
         function selectImage(imageUrl) {
@@ -416,9 +426,9 @@
       {% block header_content %}
       {% endblock %}
     </header>
-    <div class="content">
+    <main class="content">
       {% block content %}
       {% endblock %}
-    </div>
+    </main>
   </body>
 </html>
